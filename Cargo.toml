@@ -4,6 +4,7 @@ members = [
     "crates/lumewall-backend",
     "crates/lumewalld",
     "crates/lumewall-cli",
+    "crates/lumewall-gui",
 ]
 resolver = "2"
 
@@ -25,3 +26,5 @@ tracing = "0.1"
 tracing-subscriber = "0.3"
 zbus = "4.3"
 dirs = "5.0"
+gtk4 = { version = "0.9", features = ["v4_14"] }
+libadwaita = { version = "0.7", features = ["v1_5"] }

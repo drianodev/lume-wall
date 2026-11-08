@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=LumeWall
+Comment=Dynamic and Video Wallpaper Manager for Ubuntu
+Exec=lumewall-gui
+Icon=preferences-desktop-wallpaper
+Terminal=false
+Type=Application
+Categories=GNOME;GTK;Utility;Settings;DesktopSettings;
+Keywords=wallpaper;dynamic;solar;video;mpv;background;
+StartupNotify=true

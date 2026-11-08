@@ -11,6 +11,8 @@ pub struct Config {
     #[serde(default)]
     pub location: SolarCoordinates,
     #[serde(default)]
+    pub storage: StorageConfig,
+    #[serde(default)]
     pub video: VideoConfig,
     #[serde(default)]
     pub profiles: HashMap<String, Profile>,
@@ -39,6 +41,22 @@ fn default_true() -> bool {
 
 fn default_log_level() -> String {
     "info".to_string()
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct StorageConfig {
+    pub wallpapers_dir: PathBuf,
+    pub videos_dir: PathBuf,
+}
+
+impl Default for StorageConfig {
+    fn default() -> Self {
+        let home = dirs::home_dir().unwrap_or_else(|| PathBuf::from("/home/drianodev"));
+        Self {
+            wallpapers_dir: home.join("Pictures/LumeWall/Wallpapers"),
+            videos_dir: home.join("Videos/LumeWall"),
+        }
+    }
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -108,17 +126,9 @@ pub struct SolarFrame {
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct TimeFrame {
-    /// Horário no formato "HH:MM" (24h)
     pub time: String,
     pub path: PathBuf,
     pub path_dark: Option<PathBuf>,
-}
-
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize)]
-pub enum ProfileType {
-    Solar,
-    Time,
-    Video,
 }
 
 impl Config {
@@ -143,39 +153,45 @@ impl Config {
         Ok(())
     }
 
-    /// Retorna uma configuração padrão com perfil solar funcional apontando para imagens reais
-    pub fn create_default_scaffold() -> Self {
-        let mut profiles = HashMap::new();
-        let home = dirs::home_dir().unwrap_or_else(|| PathBuf::from("/home/drianodev"));
-        let samples_dir = home.join(".local/share/lumewall/samples");
+    pub fn ensure_storage_dirs(&self) -> Result<()> {
+        fs::create_dir_all(&self.storage.wallpapers_dir)?;
+        fs::create_dir_all(&self.storage.videos_dir)?;
+        Ok(())
+    }
 
+    pub fn create_default_scaffold() -> Self {
+        let storage = StorageConfig::default();
+        let _ = fs::create_dir_all(&storage.wallpapers_dir);
+        let _ = fs::create_dir_all(&storage.videos_dir);
+
+        let mut profiles = HashMap::new();
         profiles.insert(
-            "solar-cycle".to_string(),
+            "solar-local".to_string(),
             Profile::Solar {
                 description: Some("Ciclo solar automático com imagens locais".to_string()),
                 frames: vec![
                     SolarFrame {
                         azimuth: 90.0,
-                        altitude: -6.0,
-                        path: samples_dir.join("dawn.png"),
+                        altitude: -2.0,
+                        path: storage.wallpapers_dir.join("dawn.png"),
                         path_dark: None,
                     },
                     SolarFrame {
                         azimuth: 180.0,
-                        altitude: 60.0,
-                        path: samples_dir.join("day.png"),
+                        altitude: 50.0,
+                        path: storage.wallpapers_dir.join("day.png"),
                         path_dark: None,
                     },
                     SolarFrame {
                         azimuth: 270.0,
-                        altitude: -6.0,
-                        path: samples_dir.join("dawn.png"),
+                        altitude: -5.0,
+                        path: storage.wallpapers_dir.join("night.jpg"),
                         path_dark: None,
                     },
                     SolarFrame {
                         azimuth: 0.0,
-                        altitude: -45.0,
-                        path: samples_dir.join("night.jpg"),
+                        altitude: -40.0,
+                        path: storage.wallpapers_dir.join("night.jpg"),
                         path_dark: None,
                     },
                 ],
@@ -184,13 +200,14 @@ impl Config {
 
         Self {
             general: GeneralConfig {
-                active_profile: "solar-cycle".to_string(),
-                update_interval_seconds: 60,
+                active_profile: "solar-local".to_string(),
+                update_interval_seconds: 30,
                 battery_saver: true,
                 pause_on_fullscreen: true,
                 log_level: "info".to_string(),
             },
             location: SolarCoordinates::default(),
+            storage,
             video: VideoConfig::default(),
             profiles,
         }

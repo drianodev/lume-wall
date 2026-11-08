@@ -1,0 +1,22 @@
+[package]
+name = "lumewall-gui"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+
+[dependencies]
+lumewall-core = { path = "../lumewall-core" }
+lumewall-backend = { path = "../lumewall-backend" }
+gtk4 = { workspace = true }
+libadwaita = { workspace = true }
+tokio.workspace = true
+anyhow.workspace = true
+chrono.workspace = true
+tracing.workspace = true
+tracing-subscriber.workspace = true
+dirs.workspace = true
+
+[[bin]]
+name = "lumewall-gui"
+path = "src/main.rs"
