@@ -19,12 +19,18 @@ pub struct Config {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct GeneralConfig {
     pub active_profile: String,
+    #[serde(default = "default_interval")]
+    pub update_interval_seconds: u64,
     #[serde(default = "default_true")]
     pub battery_saver: bool,
     #[serde(default = "default_true")]
     pub pause_on_fullscreen: bool,
     #[serde(default = "default_log_level")]
     pub log_level: String,
+}
+
+fn default_interval() -> u64 {
+    60
 }
 
 fn default_true() -> bool {
@@ -43,6 +49,8 @@ pub struct VideoConfig {
     pub fps_limit: u32,
     #[serde(default)]
     pub volume: u32,
+    #[serde(default = "default_socket_path")]
+    pub socket_path: PathBuf,
 }
 
 fn default_hwdec() -> String {
@@ -53,12 +61,17 @@ fn default_fps() -> u32 {
     30
 }
 
+fn default_socket_path() -> PathBuf {
+    PathBuf::from("/tmp/lumewall-mpv.sock")
+}
+
 impl Default for VideoConfig {
     fn default() -> Self {
         Self {
             mpv_hwdec: default_hwdec(),
             fps_limit: default_fps(),
             volume: 0,
+            socket_path: default_socket_path(),
         }
     }
 }
@@ -130,36 +143,39 @@ impl Config {
         Ok(())
     }
 
-    /// Retorna uma configuração padrão com perfil solar de demonstração
+    /// Retorna uma configuração padrão com perfil solar funcional apontando para imagens reais
     pub fn create_default_scaffold() -> Self {
         let mut profiles = HashMap::new();
+        let home = dirs::home_dir().unwrap_or_else(|| PathBuf::from("/home/drianodev"));
+        let samples_dir = home.join(".local/share/lumewall/samples");
+
         profiles.insert(
-            "mojave-demo".to_string(),
+            "solar-cycle".to_string(),
             Profile::Solar {
-                description: Some("Perfil solar padrão de demonstração".to_string()),
+                description: Some("Ciclo solar automático com imagens locais".to_string()),
                 frames: vec![
                     SolarFrame {
                         azimuth: 90.0,
                         altitude: -6.0,
-                        path: PathBuf::from("/usr/share/backgrounds/dawn.jpg"),
+                        path: samples_dir.join("dawn.png"),
                         path_dark: None,
                     },
                     SolarFrame {
                         azimuth: 180.0,
                         altitude: 60.0,
-                        path: PathBuf::from("/usr/share/backgrounds/day.jpg"),
+                        path: samples_dir.join("day.png"),
                         path_dark: None,
                     },
                     SolarFrame {
                         azimuth: 270.0,
                         altitude: -6.0,
-                        path: PathBuf::from("/usr/share/backgrounds/dusk.jpg"),
+                        path: samples_dir.join("dawn.png"),
                         path_dark: None,
                     },
                     SolarFrame {
                         azimuth: 0.0,
                         altitude: -45.0,
-                        path: PathBuf::from("/usr/share/backgrounds/night.jpg"),
+                        path: samples_dir.join("night.jpg"),
                         path_dark: None,
                     },
                 ],
@@ -168,7 +184,8 @@ impl Config {
 
         Self {
             general: GeneralConfig {
-                active_profile: "mojave-demo".to_string(),
+                active_profile: "solar-cycle".to_string(),
+                update_interval_seconds: 60,
                 battery_saver: true,
                 pause_on_fullscreen: true,
                 log_level: "info".to_string(),
