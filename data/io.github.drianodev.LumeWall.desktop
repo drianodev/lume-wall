@@ -2,7 +2,7 @@
 Name=LumeWall
 Comment=Dynamic and Video Wallpaper Manager for Ubuntu
 Exec=lumewall-gui
-Icon=preferences-desktop-wallpaper
+Icon=io.github.drianodev.LumeWall
 Terminal=false
 Type=Application
 Categories=GNOME;GTK;Utility;Settings;DesktopSettings;

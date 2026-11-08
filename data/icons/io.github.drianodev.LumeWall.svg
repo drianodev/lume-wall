@@ -1,0 +1,107 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="100%" height="100%">
+  <defs>
+    <!-- Background squircle gradient (Deep Space / Dusk to Twilight) -->
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#141829" />
+      <stop offset="50%" stop-color="#1E233D" />
+      <stop offset="100%" stop-color="#0F111E" />
+    </linearGradient>
+
+    <!-- Sun glowing dawn-to-noon gradient -->
+    <linearGradient id="sunGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFE082" />
+      <stop offset="40%" stop-color="#FF9800" />
+      <stop offset="100%" stop-color="#F4511E" />
+    </linearGradient>
+
+    <!-- Sun aura/corona radial glow -->
+    <radialGradient id="sunAura" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#FFB300" stop-opacity="0.45" />
+      <stop offset="60%" stop-color="#FF7043" stop-opacity="0.15" />
+      <stop offset="100%" stop-color="#FF7043" stop-opacity="0" />
+    </radialGradient>
+
+    <!-- Celestial orbital arc gradient -->
+    <linearGradient id="orbitGrad" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#FF7043" stop-opacity="0.1" />
+      <stop offset="45%" stop-color="#FFCA28" stop-opacity="0.85" />
+      <stop offset="70%" stop-color="#4FC3F7" stop-opacity="0.9" />
+      <stop offset="100%" stop-color="#7986CB" stop-opacity="0.15" />
+    </linearGradient>
+
+    <!-- Geometric landscape back mountain (Twilight Purple) -->
+    <linearGradient id="mountBack" x1="50%" y1="0%" x2="50%" y2="100%">
+      <stop offset="0%" stop-color="#4A3B69" />
+      <stop offset="100%" stop-color="#28203E" />
+    </linearGradient>
+
+    <!-- Geometric landscape front ridge (Warm Ember to Night) -->
+    <linearGradient id="mountFront" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#E65100" stop-opacity="0.85" />
+      <stop offset="35%" stop-color="#6A1B9A" />
+      <stop offset="100%" stop-color="#1A1528" />
+    </linearGradient>
+
+    <!-- Drop shadows -->
+    <filter id="shadowSquircle" x="-10%" y="-10%" width="120%" height="125%">
+      <feDropShadow dx="0" dy="16" stdDeviation="20" flood-color="#000000" flood-opacity="0.55" />
+    </filter>
+
+    <filter id="glowSun" x="-40%" y="-40%" width="180%" height="180%">
+      <feDropShadow dx="0" dy="0" stdDeviation="16" flood-color="#FFA726" flood-opacity="0.6" />
+    </filter>
+
+    <!-- Rounded canvas clip for internal artwork -->
+    <clipPath id="squircleClip">
+      <rect x="32" y="32" width="448" height="448" rx="108" ry="108" />
+    </clipPath>
+  </defs>
+
+  <!-- Base App Icon Squircle with subtle border highlight -->
+  <g filter="url(#shadowSquircle)">
+    <rect x="32" y="32" width="448" height="448" rx="108" ry="108" fill="url(#bgGrad)" />
+    <rect x="32.5" y="32.5" width="447" height="447" rx="107.5" ry="107.5" fill="none" stroke="rgba(255, 255, 255, 0.12)" stroke-width="1.5" />
+  </g>
+
+  <!-- Clipped Artwork Layer -->
+  <g clip-path="url(#squircleClip)">
+    <!-- Ambient upper atmosphere glow -->
+    <circle cx="256" cy="180" r="220" fill="url(#sunAura)" />
+
+    <!-- 24h Solar Orbit / Trajectory Track (Minimalist segmented arc) -->
+    <ellipse cx="256" cy="300" rx="180" ry="180" fill="none" stroke="url(#orbitGrad)" stroke-width="3" stroke-dasharray="8 6" opacity="0.65" />
+
+    <!-- Distant Stars / Solar checkpoints -->
+    <circle cx="120" cy="210" r="3.5" fill="#FFCC80" opacity="0.6" />
+    <circle cx="390" cy="215" r="3.5" fill="#81D4FA" opacity="0.7" />
+    <circle cx="420" cy="150" r="2.5" fill="#E1BEE7" opacity="0.5" />
+    <circle cx="95" cy="140" r="2.5" fill="#FFE082" opacity="0.5" />
+
+    <!-- Sun / Lume Core Orb -->
+    <g filter="url(#glowSun)">
+      <!-- Outer Corona Glow Ring -->
+      <circle cx="256" cy="185" r="68" fill="none" stroke="#FFA726" stroke-width="2.5" stroke-dasharray="5 11" opacity="0.4" />
+      <!-- Solid radiant Sun Body -->
+      <circle cx="256" cy="185" r="54" fill="url(#sunGrad)" />
+    </g>
+
+    <!-- Stylized Horizon / Display Aspect Guides (Subtle wallpaper grid lines) -->
+    <line x1="80" y1="330" x2="432" y2="330" stroke="rgba(255, 255, 255, 0.08)" stroke-width="1.5" />
+    <line x1="120" y1="280" x2="392" y2="280" stroke="rgba(255, 255, 255, 0.05)" stroke-width="1.5" />
+
+    <!-- Geometric Origami Mountain Ridges (Foreground & Middleground) -->
+    <!-- Back Ridge -->
+    <path d="M 40 480 L 160 310 L 290 410 L 410 290 L 480 370 L 480 480 Z" fill="url(#mountBack)" opacity="0.9" />
+
+    <!-- Front Ridge with Razor Edge Sunlight Reflection -->
+    <path d="M 32 480 L 110 375 L 240 480 Z" fill="#2E1B4E" opacity="0.8" />
+    <path d="M 170 480 L 310 330 L 480 480 Z" fill="url(#mountFront)" />
+
+    <!-- Sun Crest Glow Accent on Peak -->
+    <circle cx="310" cy="330" r="4" fill="#FFE082" opacity="0.9" />
+
+    <!-- Minimalist Glass Horizon Beam (Cinematic baseline) -->
+    <path d="M 32 450 Q 256 430 480 450 L 480 480 L 32 480 Z" fill="rgba(15, 17, 30, 0.75)" />
+    <path d="M 32 450 Q 256 430 480 450" fill="none" stroke="rgba(255, 255, 255, 0.15)" stroke-width="1" />
+  </g>
+</svg>
