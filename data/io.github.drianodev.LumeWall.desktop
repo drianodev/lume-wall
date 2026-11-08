@@ -5,6 +5,7 @@ Exec=lumewall-gui
 Icon=io.github.drianodev.LumeWall
 Terminal=false
 Type=Application
+StartupWMClass=lumewall-gui
 Categories=GNOME;GTK;Utility;Settings;DesktopSettings;
 Keywords=wallpaper;dynamic;solar;video;mpv;background;
 StartupNotify=true

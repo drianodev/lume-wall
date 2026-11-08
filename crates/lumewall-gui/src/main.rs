@@ -17,6 +17,7 @@ fn main() {
 }
 
 fn build_ui(app: &libadwaita::Application) {
+    gtk4::Window::set_default_icon_name(APP_ID);
     let config_path = Config::default_config_path().unwrap();
     let config = if config_path.exists() {
         Config::load_from_file(&config_path).unwrap_or_else(|_| Config::create_default_scaffold())
@@ -33,6 +34,7 @@ fn build_ui(app: &libadwaita::Application) {
     let window = libadwaita::ApplicationWindow::builder()
         .application(app)
         .title("LumeWall")
+        .icon_name(APP_ID)
         .default_width(780)
         .default_height(580)
         .build();
