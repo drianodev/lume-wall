@@ -1,0 +1,8 @@
+/home/drianodev/Documents/projects/wallpaper-ubuntu/target/debug/deps/cpufeatures-d03b0f93a485ccc1.d: /home/drianodev/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/cpufeatures-0.2.17/src/lib.rs /home/drianodev/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/cpufeatures-0.2.17/src/x86.rs
+
+/home/drianodev/Documents/projects/wallpaper-ubuntu/target/debug/deps/libcpufeatures-d03b0f93a485ccc1.rlib: /home/drianodev/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/cpufeatures-0.2.17/src/lib.rs /home/drianodev/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/cpufeatures-0.2.17/src/x86.rs
+
+/home/drianodev/Documents/projects/wallpaper-ubuntu/target/debug/deps/libcpufeatures-d03b0f93a485ccc1.rmeta: /home/drianodev/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/cpufeatures-0.2.17/src/lib.rs /home/drianodev/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/cpufeatures-0.2.17/src/x86.rs
+
+/home/drianodev/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/cpufeatures-0.2.17/src/lib.rs:
+/home/drianodev/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/cpufeatures-0.2.17/src/x86.rs:
